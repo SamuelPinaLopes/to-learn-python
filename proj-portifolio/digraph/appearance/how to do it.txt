@@ -1,0 +1,41 @@
+to create conextion between the points.
+    - first thing is pass to the function what conextions you
+    have as a dictionary;
+    - in the function check when you're writting the lines of
+    a table;
+
+you need to create something to show the direction of the conextion/line. Each
+line have an exact direction and you need to show that because that waht digraph
+consists.
+    - let know the origin
+    - let know the destination
+
+forms to represent that
+1 lista de adjacência
+Cada vértice guarda para onde ele aponta.
+
+Exemplo:
+
+A: B
+
+B: C
+
+C: A
+
+2 Matriz de adjacência (basicamente é uma tabela)
+As linhas são ORIGEM
+As colunas são DESTINO
+
+3 Lista de arestas
+Só lista todas as setas:
+
+(A → B)
+
+(B → C)
+
+(C → A)
+
+Todas mostram duas coisas importantes:
+
+de onde sai / where it's from
+para onde chega / where it's going to arrive
