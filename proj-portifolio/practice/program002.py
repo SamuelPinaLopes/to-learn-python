@@ -1,11 +1,8 @@
-# first version of the program that let's you to rename a lot of folders with the same style
-# this didn't work well, have a bug, when you Have more then one folder to rename within the same root folder
-
 import os
 import subprocess
 
 # path to a directory to go inside and start change things
-cwd = 'c:/test2'
+cwd = 'c:/test/python'
 
 # function used
 def list_folder_inside_path(whatpath):
@@ -59,6 +56,16 @@ def remove_last_folder_own(path):
     sentence = f"{path}"
     return sentence[0:sentence.rfind('/')]
 
+def translate_word(path, dictionary):
+    to_return = ""
+    for key in dictionary.keys():
+        if f"{path}".find(key) > 0:
+            if len(to_return) > 0:
+                to_return = f"{to_return}".replace(key, dictionary[key])
+            else:
+                to_return = f"{path}".replace(key, dictionary[key])
+    return to_return
+
 def the_same(first_thing, second_thing):
     if first_thing == second_thing:
         return True
@@ -77,6 +84,28 @@ list_of_folders = []
 path_visited = []
 deleted_paths = 0
 pathchanged = ''
+words_translated = {
+    "para": "to",
+    "aprender": "learn",
+    "estudar": "study",
+    "programacao": "programming",
+    "em": "in",
+    "python": "python",
+    "poo": "oop",
+    "exercicios": "exercises",
+    "praticas": "practices",
+    "projetos": "projects",
+    "curso": "course",
+    "codigo": "code",
+    "testes": "tests",
+    "mundos": "worlds",
+    "mundo": "world",
+    "estruturas": "structures",
+    "estrutura": "structure",
+    "aulas": "class",
+    "compostas": "compounds",
+    "video": 'video'
+}
 
 # this will get the folders
 while True:
@@ -116,7 +145,7 @@ problems = list()
 # this will rename that path to folders you getted
 for path in path_list:
     # this set the path to remove the last folder
-    pathchanged = remove_space_and_others_things(remove_accents(path), '-') # this is for you change the name and is going to be used to change the path name 
+    pathchanged = translate_word(remove_space_and_others_things(remove_accents(path), '-'), words_translated) # this is for you change the name and is going to be used to change the path name 
     original_path = path # this is for the windows can go inside each path you want to rename
     print(original_path)
     print(pathchanged)
@@ -127,10 +156,8 @@ for path in path_list:
             pathchanged
         )
     except Exception as wrong:
-        print("this path have a problem: {}".format(original_path))
+        print("this folder didn't work! {}".format())
         problems.append("the exception was this: {}".format(wrong))
-    if path == path_list[-1]:
-        break
 
 """ this is how to remove double folder path, path inside other path """
 # remove double folder path, to do that you should check the last folder if that 
